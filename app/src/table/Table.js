@@ -1,4 +1,4 @@
-import FusionFormService from 'src/form/services/FusionFormService';
+import JsonFormService from 'src/form/services/JsonFormService';
 
 import TableData from 'src/table/components/TableData';
 
@@ -10,5 +10,5 @@ export default angular
 
     .component(TableData.name, TableData.config)
     
-    .service("FusionFormService", FusionFormService);
+    .service("JsonFormService", JsonFormService);
 

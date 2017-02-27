@@ -1,0 +1,45 @@
+<md-card flex>
+	<!--<img src="card-image.png" class="md-card-image" alt="image caption">-->
+	<md-card-content layout="row" flex>
+		<div class="navBardemoBasicUsage" flex>
+			<md-content class="md-padding" flex>
+				<div class="wrapper" layout="column" layout-fill ng-app="sandbox">
+
+					<form name="jsonForm">
+
+						<div ng-repeat="column in $ctrl.commandColumns.columns track by $index" layout="row">
+							<md-button class="md-fab md-mini md-primary" ng-click="$ctrl.deleteColumnRow($index)">-</md-button>
+							<md-input-container class="md-block">
+								<label>Enter command</label>
+								<input name="columnLabel{{$index}}" minlength="3" maxlength="50" ng-model="$ctrl.column.label">
+							</md-input-container>
+
+							<div ng-repeat="detColumn in column.detColumns track by $index" layout="row" class="subtab">
+								<md-button class="md-fab md-mini md-primary" ng-click="$ctrl.deleteColumnDetailsRow($parent.$index,$index)">-</md-button>
+								<md-input-container class="md-block">
+									<label>Key</label>
+									<input name="columnLabel{{$index}}" minlength="3" maxlength="50" ng-model="$ctrl.detColumn.label">
+								</md-input-container>
+								<md-input-container class="md-block">
+									<label>Value</label>
+									<input name="subColumnLabel{{$index}}" minlength="3" maxlength="50" ng-model="$ctrl.detColumn.label">
+								</md-input-container>
+							</div>
+							<div>
+								<md-button class="md-fab md-mini md-primary" ng-click="$ctrl.addColumnDetailsRow($index)">+</md-button>
+							</div>
+						</div>
+						<div>
+							<md-button class="md-fab md-mini md-primary" ng-click="$ctrl.addColumnRow($index)">+</md-button>
+						</div>
+					</form>
+
+				</div>
+			</md-content>
+
+		</div>
+	</md-card-content>
+	<md-card-actions layout="row" layout-align="end center">
+		<md-button aria-label="button-label" ng-click="$ctrl.callQuery()">Search</md-card-actions>
+	</md-card-actions>
+</md-card>

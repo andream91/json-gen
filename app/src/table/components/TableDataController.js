@@ -4,7 +4,7 @@ class TableDataController {
      * 
      * @param $log
      */
-    constructor($http, $routeParams, $log, $mdDialog, FusionFormService) {
+    constructor($http, $routeParams, $log, $mdDialog, JsonFormService) {
         var self = this;
         self.$log = $log;
 
@@ -41,7 +41,7 @@ class TableDataController {
                 console.log("Loaded tableData configuration file");
                 self.config = response.data;
 
-                self.promise = FusionFormService.runQuery(self.query, self.config).then(function (data) {
+                self.promise = JsonFormService.runQuery(self.query, self.config).then(function (data) {
                     self.processDataForVisualization(data);
                 }).catch(function () { console.log('Some error occurred') });
 
@@ -61,7 +61,7 @@ class TableDataController {
             console.log('Getting elements');
             self.query.skip = self.query.limit * (self.query.page - 1);
 
-            self.promise = FusionFormService.runQuery(self.query, self.config).then(function (data) {
+            self.promise = JsonFormService.runQuery(self.query, self.config).then(function (data) {
                 self.processDataForVisualization(data);
             }).catch(function () { console.log('Some error occurred') });
         };

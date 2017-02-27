@@ -1,8 +1,8 @@
-import FusionForm from "src/form/components/FusionForm";
-import FusionFormService from 'src/form/services/FusionFormService';
+import JsonForm from "src/form/components/JsonForm";
+import JsonFormService from 'src/form/services/JsonFormService';
 
 export default angular
     .module("form", ['ngMaterial'])
-    .component(FusionForm.name, FusionForm.config)
+    .component(JsonForm.name,JsonForm.config)
 
-    .service("FusionFormService", FusionFormService);
+    .service("JsonFormService", JsonFormService);

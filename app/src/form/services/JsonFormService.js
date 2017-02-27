@@ -1,4 +1,4 @@
-class FusionFormService {
+class JsonFormService {
     constructor($http) {
         var self = this;
         self.$http = $http;
@@ -62,4 +62,4 @@ class FusionFormService {
 
 }
 
-export default FusionFormService;
+export default JsonFormService;
