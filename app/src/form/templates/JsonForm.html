@@ -6,34 +6,45 @@
 				<div class="wrapper" layout="column" layout-fill ng-app="sandbox">
 
 					<form name="jsonForm">
-
-						<div ng-repeat="column in $ctrl.commandColumns.columns track by $index" layout="row">
-							<md-button class="md-fab md-mini md-primary" ng-click="$ctrl.deleteColumnRow($index)">-</md-button>
-							<md-input-container class="md-block">
-								<label>Enter command</label>
-								<input name="columnLabel{{$index}}" minlength="3" maxlength="50" ng-model="$ctrl.column.label">
-							</md-input-container>
-
-							<div ng-repeat="detColumn in column.detColumns track by $index" layout="row" class="subtab">
-								<md-button class="md-fab md-mini md-primary" ng-click="$ctrl.deleteColumnDetailsRow($parent.$index,$index)">-</md-button>
-								<md-input-container class="md-block">
-									<label>Key</label>
-									<input name="columnLabel{{$index}}" minlength="3" maxlength="50" ng-model="$ctrl.detColumn.label">
-								</md-input-container>
-								<md-input-container class="md-block">
-									<label>Value</label>
-									<input name="subColumnLabel{{$index}}" minlength="3" maxlength="50" ng-model="$ctrl.detColumn.label">
-								</md-input-container>
+						<div layout="column">
+							<div ng-repeat="column in $ctrl.commandColumns.columns track by $index" ng-init="parentIndex = $index" layout="row" class="instblock">
+								<div layout="row">
+									<md-button class="md-fab md-mini md-primary" ng-click="$ctrl.deleteColumnRow(parentIndex)">-</md-button>
+									<md-input-container class="md-block">
+										<label>Enter command</label>
+										<input name="columnLabel{{$index}}" minlength="3" maxlength="50" ng-model="column.label">
+									</md-input-container>
+								</div>
+								<div layout="column" class="subtab">
+									<div ng-repeat="detColumn in column.detColumns track by $index" layout="row">
+										<md-button class="md-fab md-mini md-primary" ng-click="$ctrl.deleteColumnDetailsRow($parent.$index,$index)">-</md-button>
+										<md-input-container class="md-block">
+											<label>Key</label>
+											<input name="keyLabel{{$index}}" minlength="3" maxlength="50" ng-model="detColumn[0].label">
+										</md-input-container>
+										<md-input-container class="md-block">
+											<label>Value</label>
+											<input name="valueColumnLabel{{$index}}" minlength="3" maxlength="50" ng-model="detColumn[1].label">
+										</md-input-container>
+										<md-input-container class="md-block">
+											<label>Regex</label>
+											<input name="regexLabel{{$index}}" minlength="3" maxlength="50" ng-model="detColumn[2].label">
+										</md-input-container>
+										<md-input-container class="md-block">
+											<label>Type</label>
+											<input name="typeLabel{{$index}}" minlength="3" maxlength="50" ng-model="detColumn[3].label">
+										</md-input-container>
+									</div>
+									<div>
+										<md-button class="md-fab md-mini md-primary" ng-click="$ctrl.addColumnDetailsRow(parentIndex)">+</md-button>
+									</div>
+								</div>
 							</div>
 							<div>
-								<md-button class="md-fab md-mini md-primary" ng-click="$ctrl.addColumnDetailsRow($index)">+</md-button>
+								<md-button class="md-fab md-mini md-primary" ng-click="$ctrl.addColumnRow()">+</md-button>
 							</div>
 						</div>
-						<div>
-							<md-button class="md-fab md-mini md-primary" ng-click="$ctrl.addColumnRow($index)">+</md-button>
-						</div>
 					</form>
-
 				</div>
 			</md-content>
 

@@ -2,49 +2,74 @@ class JsonFormController {
     constructor($http, JsonFormService) {
         var self = this;
 
-         var defaultNewDetailsColumn = [{
+        var defaultNewDetailsColumn = [{
+            //key
             'type': 'string',
-            'label': 'key',
+            'label': '',
             'nullable': true,
             'options': {
                 'unsigned': false
             },
-        }, {
+        },
+        //value
+        {
             'type': 'string',
-            'label': 'value',
-            'length': '255',
+            'label': '',
             'nullable': true,
             'options': {
-                'fixed': false
+                'unsigned': false
             }
-        }];
-
-        var defaultNewColumn = [{
+        },
+        //regex
+        {
             'type': 'string',
-            'label': 'Insert command',
+            'label': '',
+            'nullable': true,
+            'options': {
+                'unsigned': false
+            }
+        },
+        //type
+        {
+            'type': 'string',
+            'label': '',
+            'nullable': true,
+            'options': {
+                'unsigned': false
+            }
+        }
+        ];
+
+        var defaultNewColumn = {
+            'type': 'string',
+            'label': '',
             'length': '255',
             'nullable': true,
             'options': {
                 'fixed': false
             },
             'detColumns': [angular.copy(defaultNewDetailsColumn)]
-        }];
-       
+        };
+
 
         this.commandColumns = {
-            "columns": angular.copy(defaultNewColumn)
+            "columns": [angular.copy(defaultNewColumn)]
         };
 
         this.deleteColumnRow = function (index) {
+            console.log("deleted column " + index)
             self.commandColumns.columns.splice(index, 1);
         };
-        this.deleteColumnDetailsRow = function (parentIndex,index) {
+        this.deleteColumnDetailsRow = function (parentIndex, index) {
+            console.log("deleted subcolumn " + index + " of column " + parentIndex)
             self.commandColumns.columns[parentIndex].detColumns.splice(index, 1);
         };
-        this.addColumnRow = function (index) {
+        this.addColumnRow = function () {
             self.commandColumns.columns.push(angular.copy(defaultNewColumn));
         };
         this.addColumnDetailsRow = function (index) {
+            console.log(index)
+            console.log(self.commandColumns.columns[index].detColumns)
             self.commandColumns.columns[index].detColumns.push(angular.copy(defaultNewDetailsColumn));
         };
 
