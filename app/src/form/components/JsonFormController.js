@@ -2,6 +2,23 @@ class JsonFormController {
     constructor($http, JsonFormService) {
         var self = this;
 
+        var jobOptions = {
+            'account': '',
+            'chunks': '',
+            'job_name': '',
+            'memory': '',
+            'mpi_procs': '',
+            'ncpus': '',
+            'output_log_path': '',
+            'walltime': ''
+        };
+
+        var modules = [{
+            'autoload': '',
+            'name': '',
+            'versione': ''
+        }]
+
         var defaultNewDetailsColumn = [{
         //key
             'type': 'string',
