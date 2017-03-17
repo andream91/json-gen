@@ -3,7 +3,7 @@
 	<md-card-content layout="row" flex>
 		<div class="navBardemoBasicUsage" flex>
 			<md-content class="md-padding" flex>
-				<div class="wrapper" layout="column" layout-fill ng-app="sandbox">
+				<div class="wrapper" layout="column" layout-fill ng-app="sandbox" style="float:left;" flex=75>
 
 					<form name="jsonForm">
 						<div layout="column">
@@ -12,11 +12,15 @@
 									<md-button class="md-fab md-mini md-primary" ng-click="$ctrl.deleteColumnRow(parentIndex)">-</md-button>
 									<md-input-container class="md-block">
 										<label>Enter command</label>
-										<input name="columnLabel{{$index}}" minlength="3" maxlength="50" ng-model="column.label">
+										<input name="columnLabel{{$index}}" minlength="3" maxlength="50" ng-model="column[0].label">
+									</md-input-container>
+									<md-input-container class="md-block">
+										<label>Dependency</label>
+										<input name="columnDependencyLabel{{$index}}" minlength="3" maxlength="50" ng-model="column[1].label">
 									</md-input-container>
 								</div>
 								<div layout="column" class="subtab">
-									<div ng-repeat="detColumn in column.detColumns track by $index" layout="row">
+									<div ng-repeat="detColumn in column[0].detColumns track by $index" layout="row">
 										<md-button class="md-fab md-mini md-primary" ng-click="$ctrl.deleteColumnDetailsRow($parent.$index,$index)">-</md-button>
 										<md-input-container class="md-block">
 											<label>Key</label>
@@ -46,11 +50,36 @@
 						</div>
 					</form>
 				</div>
+				<div style="float:left;" class="wrapper" layout-fill ng-app="sandbox"  ng-repeat="column in $ctrl.commandColumns.columns track by $index" ng-init="parentIndex = $index" flex=25>
+					<div ng-if="column[0].label">
+						<p>- executable: '{{column[0].label}}'</p>
+						<p style="padding-left: 0.5em;">id: '{{column[0].label}}'</p>
+						<p style="padding-left: 0.5em;">branching_factor: 2</p>
+					</div>
+					<div ng-if="column[1].label">
+						<p style="padding-left: 0.5em;">after:</p>
+						<p style="padding-left: 0.5em;">- {{column[1].label}}</p>
+					</div>
+					<div ng-if="column[0].detColumns[0][0].label">
+						<p style="padding-left: 0.5em;">options:</p>
+						<div ng-repeat="detColumn in column[0].detColumns track by $index" layout="column">
+								<p style="padding-left: 0.5em;" >- key: "{{detColumn[0].label}}"</p>
+								<div  ng-if="detColumn[1].label">
+									<p style="padding-left: 1em;">value: "{{detColumn[1].label}}"</p>
+								</div>
+								<div  ng-if="detColumn[2].label">
+									<p style="padding-left: 1em;">regex: "{{detColumn[2].label}}"</p>
+								</div>
+								<div  ng-if="detColumn[3].label">
+									<p style="padding-left: 1em;">type: "{{detColumn[3].label}}"</p>
+								</div>
+						</div>
+					</div>
+				</div>
 			</md-content>
-
 		</div>
 	</md-card-content>
 	<md-card-actions layout="row" layout-align="end center">
-		<md-button aria-label="button-label" ng-click="$ctrl.callQuery()">Search</md-card-actions>
+		<md-button aria-label="button-label" ng-click="$ctrl.generateyml()">Generate</md-card-actions>
 	</md-card-actions>
 </md-card>
