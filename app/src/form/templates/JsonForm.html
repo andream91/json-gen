@@ -11,35 +11,39 @@
 						<div layout="row" class="instblock">
 							<md-input-container class="md-block">
 							 	<label>Account</label>
-								<input name="account" minlength="3" maxlength="50" ng-model="$ctrl.jobOptions.account">
+								<input name="account"  ng-model="$ctrl.jobOptions.account">
 							</md-input-container>
 							<md-input-container class="md-block">
 							 	<label>Chunks</label>
-								<input name="chunks" minlength="3" maxlength="50" ng-model="$ctrl.jobOptions.chunks">
+								<input name="chunks"  ng-model="$ctrl.jobOptions.chunks">
+							</md-input-container>
+							<md-input-container class="md-block">
+							 	<label>Error log path</label>
+								<input name="error_log_path"  ng-model="$ctrl.jobOptions.error_log_path">
 							</md-input-container>
 							<md-input-container class="md-block">
 							 	<label>Job name</label>
-								<input name="job_name" minlength="3" maxlength="50" ng-model="$ctrl.jobOptions.job_name">
+								<input name="job_name"  ng-model="$ctrl.jobOptions.job_name">
 							</md-input-container>
 							<md-input-container class="md-block">
 							 	<label>Memory</label>
-								<input name="memory" minlength="3" maxlength="50" ng-model="$ctrl.jobOptions.memory">
+								<input name="memory"  ng-model="$ctrl.jobOptions.memory">
 							</md-input-container>
 							<md-input-container class="md-block">
 							 	<label>Mpi procs</label>
-								<input name="mpi_procs" minlength="3" maxlength="50" ng-model="$ctrl.jobOptions.mpi_procs">
+								<input name="mpi_procs"  ng-model="$ctrl.jobOptions.mpi_procs">
 							</md-input-container>
 							<md-input-container class="md-block">
 							 	<label>Number of CPUs</label>
-								<input name="ncpus" minlength="3" maxlength="50" ng-model="$ctrl.jobOptions.ncpus">
+								<input name="ncpus"  ng-model="$ctrl.jobOptions.ncpus">
 							</md-input-container>
 							<md-input-container class="md-block">
 							 	<label>Output log path</label>
-								<input name="output_log_path" minlength="3" maxlength="50" ng-model="$ctrl.jobOptions.output_log_path">
+								<input name="output_log_path"   ng-model="$ctrl.jobOptions.output_log_path">
 							</md-input-container>
 							<md-input-container class="md-block">
 							 	<label>Walltime</label>
-								<input name="walltime" minlength="3" maxlength="50" ng-model="$ctrl.jobOptions.walltime">
+								<input name="walltime"   ng-model="$ctrl.jobOptions.walltime">
 							</md-input-container>
 						</div>
 						<div>
@@ -52,31 +56,39 @@
 										<md-button class="md-fab md-mini md-primary" ng-click="$ctrl.deleteColumnRow(parentIndex)">-</md-button>
 										<md-input-container class="md-block">
 											<label>Enter command</label>
-											<input name="columnLabel{{$index}}" minlength="3" maxlength="50" ng-model="column[0].label">
+											<input name="columnLabel{{$index}}"   ng-model="column.executable">
+										</md-input-container>
+										<md-input-container class="md-block">
+											<label>Id</label>
+											<input name="columnLabel{{$index}}"   ng-model="column.id">
+										</md-input-container>
+										<md-input-container class="md-block">
+											<label>Branching factor</label>
+											<input name="columnLabel{{$index}}"   ng-model="column.branching_factor">
 										</md-input-container>
 										<md-input-container class="md-block">
 											<label>Dependency</label>
-											<input name="columnDependencyLabel{{$index}}" minlength="3" maxlength="50" ng-model="column[1].label">
+											<input name="columnDependencyLabel{{$index}}"   ng-model="column.after">
 										</md-input-container>
 									</div>
 									<div layout="column" class="subtab">
-										<div ng-repeat="detColumn in column[0].detColumns track by $index" layout="row">
+										<div ng-repeat="detColumn in column.options track by $index" layout="row">
 											<md-button class="md-fab md-mini md-primary" ng-click="$ctrl.deleteColumnDetailsRow($parent.$index,$index)">-</md-button>
 											<md-input-container class="md-block">
 												<label>Key</label>
-												<input name="keyLabel{{$index}}" minlength="3" maxlength="50" ng-model="detColumn[0].label">
+												<input name="keyLabel{{$index}}"   ng-model="detColumn.key">
 											</md-input-container>
 											<md-input-container class="md-block">
 												<label>Value</label>
-												<input name="valueColumnLabel{{$index}}" minlength="3" maxlength="50" ng-model="detColumn[1].label">
+												<input name="valueColumnLabel{{$index}}"   ng-model="detColumn.value">
 											</md-input-container>
 											<md-input-container class="md-block">
 												<label>Regex</label>
-												<input name="regexLabel{{$index}}" minlength="3" maxlength="50" ng-model="detColumn[2].label">
+												<input name="regexLabel{{$index}}"   ng-model="detColumn.regex">
 											</md-input-container>
 											<md-input-container class="md-block">
 												<label>Type</label>
-												<input name="typeLabel{{$index}}" minlength="3" maxlength="50" ng-model="detColumn[3].label">
+												<input name="typeLabel{{$index}}"   ng-model="detColumn.type">
 											</md-input-container>
 										</div>
 										<div>
@@ -91,44 +103,51 @@
 						</div>
 					</form>
 				</div>
-				<div style="float:left;" class="wrapper" layout-fill ng-app="sandbox"  ng-repeat="column in $ctrl.commandColumns.columns track by $index" ng-init="parentIndex = $index" flex=25>
-					<p>---</p>
-					<p>job_options:</p>
-					<p style="padding-left: 0.5em;">account: '{{$ctrl.jobOptions.account}}'</p>
-					<p style="padding-left: 0.5em;">chunks: '{{$ctrl.jobOptions.chunks}}'</p>
-					<p style="padding-left: 0.5em;">error_log_path: ''</p>
-					<p style="padding-left: 0.5em;">job_name: '{{$ctrl.jobOptions.job_name}}'</p>
-					<p style="padding-left: 0.5em;">memory: '{{$ctrl.jobOptions.memory}}'</p>
-					<p style="padding-left: 0.5em;">mpi_procs: '{{$ctrl.jobOptions.mpi_procs}}'</p>
-					<p style="padding-left: 0.5em;">ncpus: '{{$ctrl.jobOptions.ncpus}}''</p>
-					<p style="padding-left: 0.5em;">output_log_path: '{{$ctrl.jobOptions.output_log_path}}''</p>
-					<p style="padding-left: 0.5em;">walltime: '{{$ctrl.jobOptions.walltime}}'</p>
-					<p>commands:</p>
-					<div ng-if="column[0].label">
-						<p>- executable: '{{column[0].label}}'</p>
-						<p style="padding-left: 0.5em;">id: '{{column[0].label}}'</p>
-						<p style="padding-left: 0.5em;">branching_factor: 2</p>
+				<div style="float:left;" class="wrapper" layout-fill ng-app="sandbox" flex=25>
+					<div>
+						<p>---</p>
+						<p>job_options:</p>
+						<p style="padding-left: 0.5em;">account: '{{$ctrl.jobOptions.account}}'</p>
+						<p style="padding-left: 0.5em;">chunks: '{{$ctrl.jobOptions.chunks}}'</p>
+						<p style="padding-left: 0.5em;">error_log_path: '{{$ctrl.jobOptions.error_log_path}}'</p>
+						<p style="padding-left: 0.5em;">job_name: '{{$ctrl.jobOptions.job_name}}'</p>
+						<p style="padding-left: 0.5em;">memory: '{{$ctrl.jobOptions.memory}}'</p>
+						<p style="padding-left: 0.5em;">mpi_procs: '{{$ctrl.jobOptions.mpi_procs}}'</p>
+						<p style="padding-left: 0.5em;">ncpus: '{{$ctrl.jobOptions.ncpus}}''</p>
+						<p style="padding-left: 0.5em;">output_log_path: '{{$ctrl.jobOptions.output_log_path}}''</p>
+						<p style="padding-left: 0.5em;">walltime: '{{$ctrl.jobOptions.walltime}}'</p>
+						<p>commands:</p>
 					</div>
-					<div ng-if="column[1].label">
-						<p style="padding-left: 0.5em;">after:</p>
-						<p style="padding-left: 0.5em;">- {{column[1].label}}</p>
-					</div>
-					<div ng-if="column[0].detColumns[0][0].label">
-						<p style="padding-left: 0.5em;">options:</p>
-						<div ng-repeat="detColumn in column[0].detColumns track by $index" layout="column">
-							<p style="padding-left: 0.5em;" >- key: "{{detColumn[0].label}}"</p>
-							<div  ng-if="detColumn[1].label">
-								<p style="padding-left: 1em;">value: "{{detColumn[1].label}}"</p>
+
+					<div ng-repeat="column in $ctrl.commandColumns.columns track by $index" ng-init="parentIndex = $index" >
+						<div ng-if="column.executable">
+							<p>- executable: '{{column.executable}}'</p>
+							<p style="padding-left: 0.5em;">id: '{{column.id}}'</p>
+							<p style="padding-left: 0.5em;">branching_factor: {{column.branching_factor}}</p>
+						</div>
+						<div ng-if="column.after">
+							<p style="padding-left: 0.5em;">after:</p>
+							<p style="padding-left: 0.5em;">- {{column.after}}</p>
+						</div>
+						<div>
+							<p style="padding-left: 0.5em;">options:</p>
+							<div ng-repeat="detColumn in column.options track by $index" layout="column">
+								<p style="padding-left: 0.5em;" >- key: "{{detColumn.key}}"</p>
+								<div  ng-if="detColumn.value">
+									<p style="padding-left: 1em;">value: "{{detColumn.value}}"</p>
+								</div>
+								<div  ng-if="detColumn.regex">
+									<p style="padding-left: 1em;">regex: "{{detColumn.regex}}"</p>
+								</div>
+								<div ng-if="detColumn.type">
+									<p style="padding-left: 1em;">type: "{{detColumn.type}}"</p>
+								</div>
 							</div>
-							<div  ng-if="detColumn[2].label">
-								<p style="padding-left: 1em;">regex: "{{detColumn[2].label}}"</p>
-							</div>
-							<div  ng-if="detColumn[3].label">
-								<p style="padding-left: 1em;">type: "{{detColumn[3].label}}"</p>
-							</div>
+						</div>
 						</div>
 					</div>
 				</div>
+
 			</md-content>
 		</div>
 	</md-card-content>

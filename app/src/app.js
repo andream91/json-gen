@@ -14,7 +14,8 @@ import Table from 'src/table/Table';
 import Menu from 'src/menu/Menu';
 
 export default angular.module( 'starter-app', [ 'ngMaterial', 'ngRoute', Form.name, Table.name, Menu.name])
-  .config(($mdThemingProvider,$routeProvider) => {
+  .config(($mdThemingProvider,$routeProvider,$httpProvider) => {
+    $httpProvider.defaults.headers.post['Content-Type'] = 'application/json';
     // Register the user `avatar` icons
     
     $mdThemingProvider.theme('default')
