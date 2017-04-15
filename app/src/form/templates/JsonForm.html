@@ -4,9 +4,21 @@
 		<div class="navBardemoBasicUsage" flex>
 			<md-content class="md-padding" flex>
 				<div class="wrapper" layout="column" layout-fill ng-app="sandbox" style="float:left;" flex=75>
-					<div>
-						DIV CARICAMENTO YAML ESISTENTE
+					<div layout="row">
+						<div flex=50>
+							<md-input-container class="md-block">
+									<label>User name</label>
+									<input name="username" ng-model="$ctrl.username">
+							</md-input-container>
+							<md-button class="md-primary md-raised" ng-click="$ctrl.loadFilesFromUser()">Load Single User Files</md-button>
+						</div>
+						<div flex=50>
+							<md-button class="md-primary md-raised" ng-click="$ctrl.loadAllFiles()">Load all files</md-button>
+						</div>
 					</div>
+					<p ng-repeat="(key,data) in $ctrl.displayedFiles" ng-click="$ctrl.populateFromFile(data)">
+						{{key}}			 
+					</p>
 					<form name="jsonForm">
 						<div layout="row" class="instblock">
 							<md-input-container class="md-block">

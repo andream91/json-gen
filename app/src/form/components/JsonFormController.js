@@ -1,5 +1,5 @@
 class JsonFormController {
-    constructor($http, JsonFormService) {
+    constructor($http, JsonFormService, $mdDialog) {
         var self = this;
 
         var jobOptions = {
@@ -37,29 +37,9 @@ class JsonFormController {
             'options': [angular.copy(defaultNewDetailsColumn)]
         };
 
-        /*var defaultNewColumn = [{
-            //command
-            'type': 'string',
-            'label': '',
-            'length': '255',
-            'nullable': true,
-            'options': {
-                'fixed': false
-            },
-            'detColumns': [angular.copy(defaultNewDetailsColumn)]
-        },
-        //dependency
-        {
-            'type': 'string',
-            'label': '',
-            'length': '255',
-            'nullable': true,
-            'options': {
-                'fixed': false
-            },
-        }];*/
+        var displayedFiles = [];
 
-
+        var username = "";
       
 
         this.commandColumns = {
@@ -91,8 +71,41 @@ class JsonFormController {
             };
             console.log(mydata);
             console.log("da questa funzione parte la generazione del file yml");
-            $http.post('http://localhost/api/generate_yaml/',mydata).then(function(){console.log("success");}, function(){console.log("error");});
+            var postUrl = 'http://localhost/api/generate_yaml/'+self.username;
+            $http.post(postUrl,mydata).then(function(){console.log("success");}, function(){console.log("error");});
 
+
+        }
+        this.loadAllFiles = function (){
+            $http.post('http://localhost/api/get_all_files/').then(function(response){
+                //console.log(response.data);
+                /*for(var k in response.data){
+                    var rd = 'response.data.';
+                    console.log(eval(rd+k));
+                    displayedFiles.push(eval(rd+k));
+                }*/
+               
+                self.displayedFiles = response.data;
+    
+            }, function(){console.log("error");});
+        }
+        this.loadFilesFromUser = function (){
+            $http.post('http://localhost/api/get_user_files/',self.username).then(function(response){
+                //console.log(response.data);
+                /*for(var k in response.data){
+                    var rd = 'response.data.';
+                    console.log(eval(rd+k));
+                    displayedFiles.push(eval(rd+k));
+                }*/
+               
+                self.displayedFiles = response.data;
+    
+            }, function(){console.log("error");});
+        }
+        this.populateFromFile = function(data){
+            self.jobOptions = data.job_options;
+            self.commandColumns.columns = data.commands;
+            //self.modules = data.modules;
 
         }
 
